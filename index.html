@@ -17,7 +17,8 @@
         let dt;
         requestAnimationFrame(desenhaQuadrado);
 
-        let x = 100;
+        let x = canvas.width/2;
+        let y = canvas.height/2;
 
         function desenhaQuadrado(t) {
             t0 = t0 ?? t;
@@ -26,10 +27,11 @@
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             //bloco anda
-            x += 20*dt;
+            x += 100*Math.cos(t/200)*dt;
+            y += 100*Math.sin(t/250)*dt;
 
             ctx.fillStyle = "black";
-            ctx.fillRect(x, 200, 25, 25);
+            ctx.fillRect(x, y, 25, 25);
 
             requestAnimationFrame(desenhaQuadrado);
             t0 = t;
