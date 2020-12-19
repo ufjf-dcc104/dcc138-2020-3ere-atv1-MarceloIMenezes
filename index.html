@@ -13,13 +13,26 @@
         canvas.width = 480;
         canvas.height = 320;
         let ctx = canvas.getContext("2d");
+        let t0;
+        let dt;
+        requestAnimationFrame(desenhaQuadrado);
 
-        function desenhaQuadrado() {
+        let x = 100;
+
+        function desenhaQuadrado(t) {
+            t0 = t0 ?? t;
+            dt = (t - t0)/1000;
+
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            //bloco anda
+            x += 20*dt;
 
             ctx.fillStyle = "black";
-            ctx.fillRect(100, 200, 25, 25);
+            ctx.fillRect(x, 200, 25, 25);
+
+            requestAnimationFrame(desenhaQuadrado);
+            t0 = t;
         }
     </script>
 </body>
