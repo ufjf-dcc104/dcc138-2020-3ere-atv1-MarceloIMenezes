@@ -14,8 +14,13 @@
         canvas.height = 320;
         let ctx = canvas.getContext("2d");
 
-        ctx.fillStyle = "grey";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function desenhaQuadrado() {
+            ctx.fillStyle = "grey";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(100, 200, 25, 25);
+        }
     </script>
 </body>
 </html>
