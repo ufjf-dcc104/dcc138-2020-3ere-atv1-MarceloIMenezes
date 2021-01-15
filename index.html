@@ -17,20 +17,26 @@
         let dt;
         requestAnimationFrame(desenhaQuadrado);
 
-        let x = canvas.width/2;
-        let y = canvas.height/2;
-        let vx = 0;
-        let vy = 0;
-        let ax = 0;
-        let ay = 0;
-        let tamanho = 25;
-
-        let ex = canvas.width/2 + 100;
-        let ey = canvas.height/2 - 100;
-        let evx = 0;
-        let evy = 0;
-        let eax = 0;
-        let eay = 0;
+        let p = {
+         x: canvas.width/2,
+         y: canvas.height/2,
+         vx: 0,
+         vy: 0,
+         ax: 0,
+         ay: 0,
+         tamanho: 25,
+         cor: "white"
+        };
+        let e = {
+            x: canvas.width/2 + 100,
+            y: canvas.height/2 - 100,
+            vx: 0,
+            vy: 0,
+            ax: 0,
+            ay: 0,
+            tamanho: 25,
+            cor: "blue"
+        };
 
         const A = 100;
 
