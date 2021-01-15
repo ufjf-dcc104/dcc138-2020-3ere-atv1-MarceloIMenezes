@@ -50,20 +50,28 @@
             blocos.push(e);
         }
         let projetil = {
-         x: canvas.width/2,
-         y: canvas.height/2,
-         vx: 0,
-         vy: 0,
-         ax: 0,
-         ay: 0,
-         tamanhoX: 25,
-         tamanhoY: 25,
-         cor: "black",
-         mover: acelerarBloco,
-         desenha: desenhaBloco
+            x: -1000,
+            y: -1000,
+            vx: 0,
+            vy: 0,
+            ax: 0,
+            ay: 0,
+            tamanhoX: 10,
+            tamanhoY: 5,
+            cor: "white",
+            mover: acelerarBloco,
+            desenha: desenhaBloco,
+            perseguir: function () {
+                if (this.x > canvas.width + this.tamanhoX) {
+                    this.x = -1000;
+                    this.ax = 0;
+                    this.vx = 0;
+                }
+            }
         };
+        blocos.push(projetil);
 
-        const A = 100;
+        const A = 200;
 
         function colidiu(B1, B2) {
             return !(
@@ -102,11 +110,21 @@
             for (let i = 0; i < blocos.length; i++) {
                 const e = blocos[i];
                 //controlador
-                e.perseguir(p);
-                e.mover();
+                e.perseguir?.(p);
+                e.mover?.();
                 //desenha blocos
                 e.desenha();
-                if (colidiu(p, e)) {
+                if (colidiu(projetil, e) && e != projetil) {
+                    e.x = 1000;
+                    e.vx = 0;
+                    e.vy = 0;
+                    e.ay = 0;
+                    e.ax = 0;
+                    projetil.x = -1000;
+                    projetil.ax = 0;
+                    projetil.vx = 0;
+                }
+                if (colidiu(p, e) && e != projetil) {
                     e.x = 1000;
                     e.vx = 0;
                     e.vy = 0;
@@ -149,6 +167,12 @@
                 case "ArrowRight":
                     p.ax = 0;
                     break;
+                case " ":
+                    if (projetil.x === -1000) {
+                        projetil.x = p.x + p.tamanhoX;
+                        projetil.y = p.y + p.tamanhoY/2;
+                        projetil.vx = 1000;
+                    }
                 default:
                     break;
             }
