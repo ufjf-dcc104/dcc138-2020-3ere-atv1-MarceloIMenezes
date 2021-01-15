@@ -15,7 +15,7 @@
         let ctx = canvas.getContext("2d");
         let t0;
         let dt;
-        requestAnimationFrame(desenhaQuadrado);
+        requestAnimationFrame(tela);
 
         let p = {
          x: canvas.width/2,
@@ -26,7 +26,8 @@
          ay: 0,
          tamanho: 25,
          cor: "white",
-         mover: acelerarBloco
+         mover: acelerarBloco,
+         desenha: desenhaBloco
         };
         let e = {
             x: canvas.width/2 + 100,
@@ -37,7 +38,8 @@
             ay: 0,
             tamanho: 25,
             cor: "blue",
-            mover: acelerarBloco
+            mover: acelerarBloco,
+            desenha: desenhaBloco
         };
 
         const A = 100;
@@ -48,8 +50,12 @@
             this.x += this.vx*dt;
             this.y += this.vy*dt;
         }
+        function desenhaBloco() {
+            ctx.fillStyle = this.cor;
+            ctx.fillRect(this.x, this.y, this.tamanho, this.tamanho);
+        }
 
-        function desenhaQuadrado(t) {
+        function tela(t) {
             t0 = t0 ?? t;
             dt = (t - t0)/1000;
 
@@ -63,11 +69,9 @@
             e.mover;
             //tamanho += 75*Math.sin(t/200)*dt;
 
-            ctx.fillStyle = "black";
-            ctx.fillRect(x, y, tamanho, tamanho);
-            //adiciona outro bloco
-            ctx.fillStyle = "blue";
-            ctx.fillRect(ex, ey, tamanho, tamanho);
+            //desenha blocos
+            p.desenha;
+            e.desenha;
 
             requestAnimationFrame(desenhaQuadrado);
             t0 = t;
@@ -75,35 +79,33 @@
         addEventListener("keydown", moveBloco);
         addEventListener("keyup", paraBloco);
 
-        function moveBloco(e) {
-            switch (e.key) {
+        function moveBloco(event) {
+            switch (event.key) {
                 case "ArrowDown":
-                    ay = A;
+                    p.ay = A;
                     break;
                 case "ArrowUp":
-                    ay = -A;
+                    p.ay = -A;
                     break;
                 case "ArrowLeft":
-                    ax = -A;
+                    p.ax = -A;
                     break;
                 case "ArrowRight":
-                    ax = +A;
+                    p.ax = +A;
                     break;
                 default:
                     break;
             }
         }
-        function paraBloco(e) {
-            switch (e.key) {
+        function paraBloco(event) {
+            switch (event.key) {
                 case "ArrowDown":
                 case "ArrowUp":
-                    ay = 0;
-                    vy = 0;
+                    p.ay = 0;
                     break;
                 case "ArrowLeft":
                 case "ArrowRight":
-                    ax = 0;
-                    vx = 0;
+                    p.ax = 0;
                     break;
                 default:
                     break;
