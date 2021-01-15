@@ -61,8 +61,8 @@
             ctx.fillRect(this.x, this.y, this.tamanho, this.tamanho);
         }
         function persegueAlvo(alvo) {
-            this.ax = 0.2*(alvo.x - this.x) - 0.05*this.vx;
-            this.ay = 0.2*(alvo.y - this.y) - 0.05*this.vy;
+            this.ax = 100*Math.sign(alvo.x - this.x) - 0.05*this.vx;
+            this.ay = 100*Math.sign(alvo.y - this.y) - 0.05*this.vy;
         }
 
         function tela(t) {
