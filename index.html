@@ -29,19 +29,24 @@
          mover: acelerarBloco,
          desenha: desenhaBloco
         };
-        let e = {
-            x: canvas.width/2 + 100,
-            y: canvas.height/2 - 100,
-            vx: 0,
-            vy: 0,
-            ax: 0,
-            ay: 0,
-            tamanho: 25,
-            cor: "blue",
-            mover: acelerarBloco,
-            desenha: desenhaBloco,
-            perseguir: persegueAlvo
-        };
+        const blocos = [];
+        const NUM_E = 10;
+        for (let i = 0; i < NUM_E; i++) {
+            let e = {
+                x: canvas.width + 1000 * Math.random(),
+                y: canvas.height * Math.random(),
+                vx: 0,
+                vy: 0,
+                ax: 0,
+                ay: 0,
+                tamanho: 25,
+                cor: "blue",
+                mover: acelerarBloco,
+                desenha: desenhaBloco,
+                perseguir: persegueAlvo
+            };
+            blocos.push(e);
+        }
 
         const A = 100;
 
@@ -66,16 +71,18 @@
 
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            //controlador
-            e.perseguir(p);
             //bloco anda
             p.mover();
-            e.mover();
-            //tamanho += 75*Math.sin(t/200)*dt;
-
-            //desenha blocos
             p.desenha();
-            e.desenha();
+            //tamanho += 75*Math.sin(t/200)*dt;
+            for (let i = 0; i < blocos.length; i++) {
+                const e = blocos[i];
+                //controlador
+                e.perseguir(p);
+                e.mover();
+                //desenha blocos
+                e.desenha();
+            }
 
             requestAnimationFrame(tela);
             t0 = t;
