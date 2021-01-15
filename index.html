@@ -25,7 +25,8 @@
          ax: 0,
          ay: 0,
          tamanho: 25,
-         cor: "white"
+         cor: "white",
+         mover: acelerarBloco
         };
         let e = {
             x: canvas.width/2 + 100,
@@ -35,10 +36,18 @@
             ax: 0,
             ay: 0,
             tamanho: 25,
-            cor: "blue"
+            cor: "blue",
+            mover: acelerarBloco
         };
 
         const A = 100;
+
+        function acelerarBloco() {
+            this.vx += this.ax*dt;
+            this.vy += this.ay*dt;
+            this.x += this.vx*dt;
+            this.y += this.vy*dt;
+        }
 
         function desenhaQuadrado(t) {
             t0 = t0 ?? t;
@@ -50,15 +59,8 @@
             eax = 0.2*(x - ex) - 0.05*evx;
             eay = 0.2*(y - ey) - 0.05*evy;
             //bloco anda
-            vx += ax*dt;
-            vy += ay*dt;
-            x += vx*dt;
-            y += vy*dt;
-
-            evx += eax*dt;
-            evy += eay*dt;
-            ex += evx*dt;
-            ey += evy*dt;
+            p.mover;
+            e.mover;
             //tamanho += 75*Math.sin(t/200)*dt;
 
             ctx.fillStyle = "black";
