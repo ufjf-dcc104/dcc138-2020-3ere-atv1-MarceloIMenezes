@@ -19,7 +19,12 @@
 
         let x = canvas.width/2;
         let y = canvas.height/2;
+        let vx = 0;
+        let vy = 0;
+        let ax = 0;
+        let ay = 0;
         let tamanho = 25;
+        const A = 100;
 
         function desenhaQuadrado(t) {
             t0 = t0 ?? t;
@@ -28,15 +33,37 @@
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             //bloco anda
-            x += 100*Math.cos(t/200)*dt;
-            y += 100*Math.sin(t/250)*dt;
-            tamanho += 75*Math.sin(t/200)*dt;
+            vx += ax*dt;
+            vy += ay*dt;
+            x += vx*dt;
+            y += vy*dt;
+            //tamanho += 75*Math.sin(t/200)*dt;
 
             ctx.fillStyle = "black";
             ctx.fillRect(x, y, tamanho, tamanho);
 
             requestAnimationFrame(desenhaQuadrado);
             t0 = t;
+        }
+        addEventListener("keydown", moveBloco);
+
+        function moveBloco(e) {
+            switch (e.key) {
+                case "ArrowDown":
+                    ay = -A;
+                    break;
+                case "ArrowUp":
+                    ay = A;
+                    break;
+                case "ArrowLeft":
+                    ax = A;
+                    break;
+                case "ArrowRight":
+                    ax = -A;
+                    break;
+                default:
+                    break;
+            }
         }
     </script>
 </body>
