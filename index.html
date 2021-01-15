@@ -50,16 +50,16 @@
         function moveBloco(e) {
             switch (e.key) {
                 case "ArrowDown":
-                    ay = -A;
-                    break;
-                case "ArrowUp":
                     ay = A;
                     break;
+                case "ArrowUp":
+                    ay = -A;
+                    break;
                 case "ArrowLeft":
-                    ax = A;
+                    ax = -A;
                     break;
                 case "ArrowRight":
-                    ax = -A;
+                    ax = +A;
                     break;
                 default:
                     break;
