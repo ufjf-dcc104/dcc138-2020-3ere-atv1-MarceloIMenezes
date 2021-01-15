@@ -24,7 +24,8 @@
          vy: 0,
          ax: 0,
          ay: 0,
-         tamanho: 25,
+         tamanhoX: 25,
+         tamanhoY: 25,
          cor: "black",
          mover: acelerarBloco,
          desenha: desenhaBloco
@@ -39,7 +40,8 @@
                 vy: 0,
                 ax: 0,
                 ay: 0,
-                tamanho: 25,
+                tamanhoX: 25,
+                tamanhoY: 25,
                 cor: "blue",
                 mover: acelerarBloco,
                 desenha: desenhaBloco,
@@ -47,8 +49,30 @@
             };
             blocos.push(e);
         }
+        let projetil = {
+         x: canvas.width/2,
+         y: canvas.height/2,
+         vx: 0,
+         vy: 0,
+         ax: 0,
+         ay: 0,
+         tamanhoX: 25,
+         tamanhoY: 25,
+         cor: "black",
+         mover: acelerarBloco,
+         desenha: desenhaBloco
+        };
 
         const A = 100;
+
+        function colidiu(B1, B2) {
+            return !(
+                   B1.x + B1.tamanhoX < B2.x
+                || B1.x > B2.x + B2.tamanhoX
+                || B1.y + B1.tamanhoY < B2.y
+                || B1.y > B2.y + B2.tamanhoY
+                ) 
+        }
 
         function acelerarBloco() {
             this.vx += this.ax*dt;
@@ -58,7 +82,7 @@
         }
         function desenhaBloco() {
             ctx.fillStyle = this.cor;
-            ctx.fillRect(this.x, this.y, this.tamanho, this.tamanho);
+            ctx.fillRect(this.x, this.y, this.tamanhoX, this.tamanhoY);
         }
         function persegueAlvo(alvo) {
             this.ax = 100*Math.sign(alvo.x - this.x) - 0.05*this.vx;
@@ -74,7 +98,7 @@
             //bloco anda
             p.mover();
             p.desenha();
-            //tamanho += 75*Math.sin(t/200)*dt;
+
             for (let i = 0; i < blocos.length; i++) {
                 const e = blocos[i];
                 //controlador
@@ -82,6 +106,13 @@
                 e.mover();
                 //desenha blocos
                 e.desenha();
+                if (colidiu(p, e)) {
+                    e.x = 1000;
+                    e.vx = 0;
+                    e.vy = 0;
+                    e.ay = 0;
+                    e.ax = 0;
+                }
             }
 
             requestAnimationFrame(tela);
