@@ -67,15 +67,15 @@
             ctx.fillStyle = "grey";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             //controlador
-            e.perseguir;
+            e.perseguir();
             //bloco anda
-            p.mover;
-            e.mover;
+            p.mover();
+            e.mover();
             //tamanho += 75*Math.sin(t/200)*dt;
 
             //desenha blocos
-            p.desenha;
-            e.desenha;
+            p.desenha();
+            e.desenha();
 
             requestAnimationFrame(tela);
             t0 = t;
