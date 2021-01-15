@@ -46,6 +46,7 @@
             t0 = t;
         }
         addEventListener("keydown", moveBloco);
+        addEventListener("keyup", paraBloco);
 
         function moveBloco(e) {
             switch (e.key) {
@@ -60,6 +61,22 @@
                     break;
                 case "ArrowRight":
                     ax = +A;
+                    break;
+                default:
+                    break;
+            }
+        }
+        function paraBloco(e) {
+            switch (e.key) {
+                case "ArrowDown":
+                case "ArrowUp":
+                    ay = 0;
+                    vy = 0;
+                    break;
+                case "ArrowLeft":
+                case "ArrowRight":
+                    ax = 0;
+                    vx = 0;
                     break;
                 default:
                     break;
