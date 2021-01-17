@@ -72,6 +72,7 @@
         blocos.push(projetil);
 
         const A = 200;
+        let pontos = 0;
 
         function colidiu(B1, B2) {
             return !(
@@ -123,6 +124,7 @@
                     projetil.x = -1000;
                     projetil.ax = 0;
                     projetil.vx = 0;
+                    pontos++;
                 }
                 if (colidiu(p, e) && e != projetil) {
                     e.x = 1000;
@@ -130,8 +132,14 @@
                     e.vy = 0;
                     e.ay = 0;
                     e.ax = 0;
+                    pontos--;
+                    if (pontos < 0)
+                        pontos = 0;
                 }
             }
+            ctx.fillStyle = "#00FFFB";
+            ctx.font = "20px sans-serif";
+            ctx.fillText(pontos, canvas.width/2, 25);
 
             requestAnimationFrame(tela);
             t0 = t;
